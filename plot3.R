@@ -1,7 +1,7 @@
 ###############################################################################
 # R Script
 #
-# This script generates Plot 1, which is part of Course Project 1.
+# This script generates Plot 3, which is part of Course Project 1.
 # Class: Exploratory Data Analysis, Coursera Data Science Sequence
 # 
 # Author: G. S. Averill
@@ -37,17 +37,27 @@ endDate   <- as.Date("2007-02-02")
 hpcData <- hpcData[((hpcData$Date >= beginDate) & (hpcData$Date <= endDate)), ]
 
 # Open a PNG graphics device.
-png(filename = "plot1.png", 
+png(filename = "plot3.png",
     width = 480,
     height = 480
    )
 
-# Make the plot.
-hist(hpcData$Global_active_power,
-     col = "red",
-     main = "Global Active Power",
-     xlab = "Global Active Power (kilowatts)"
+# Make the base plot with one of three sets of X data.
+plot(hpcData$Time, hpcData$Sub_metering_1,
+     type = "l",
+     xlab = "",
+     ylab = "Energy sub metering"
     )
+
+# Add the other two sets of data.
+lines(hpcData$Time, hpcData$Sub_metering_2, col = "red")
+lines(hpcData$Time, hpcData$Sub_metering_3, col = "blue")
+
+# Add the legend.
+legend("topright", lty = 1, lwd = 1,
+        col    = c("black",          "red",            "blue"          ),
+        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
+      )
 
 # Close the graphics device
 dev.off()

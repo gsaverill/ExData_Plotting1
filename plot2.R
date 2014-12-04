@@ -1,7 +1,7 @@
 ###############################################################################
 # R Script
 #
-# This script generates Plot 1, which is part of Course Project 1.
+# This script generates Plot 2, which is part of Course Project 1.
 # Class: Exploratory Data Analysis, Coursera Data Science Sequence
 # 
 # Author: G. S. Averill
@@ -37,16 +37,16 @@ endDate   <- as.Date("2007-02-02")
 hpcData <- hpcData[((hpcData$Date >= beginDate) & (hpcData$Date <= endDate)), ]
 
 # Open a PNG graphics device.
-png(filename = "plot1.png", 
+png(filename = "plot2.png", 
     width = 480,
     height = 480
    )
 
 # Make the plot.
-hist(hpcData$Global_active_power,
-     col = "red",
-     main = "Global Active Power",
-     xlab = "Global Active Power (kilowatts)"
+plot(hpcData$Time, hpcData$Global_active_power, 
+     type = "l",
+     xlab = "",
+     ylab = "Global Active Power (kilowatts)"
     )
 
 # Close the graphics device
