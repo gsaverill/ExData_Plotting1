@@ -113,5 +113,5 @@ plot(hpcData$Time, hpcData$Global_reactive_power,
      ylab = "Global_reactive_power"
     )
 
-# Close the graphics device
+# Close the graphics device.
 dev.off()
