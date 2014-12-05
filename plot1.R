@@ -7,22 +7,38 @@
 # Author: G. S. Averill
 ###############################################################################
 
-# Path to the source data.
-sourceDataURL <- "https://d396qusza40orc.cloudfront.net/exdata/data/household_power_consumption.zip"
+# URL for the source data .zip archive.
+sourceDataZipURL <- "https://d396qusza40orc.cloudfront.net/exdata/data/household_power_consumption.zip"
 
 # Name of the file to extract from the .zip archive.
-sourceDataFileName <- "household_power_consumption.txt"
+sourceDataFile <- "household_power_consumption.txt"
 
-# Download the .zip archive, extract the data file, and load the data from the
-# file into a data frame.
-tmpFile <- tempfile()
-download.file(sourceDataURL,tmpFile, method = "curl")
-hpcData <- read.table(unz(tmpFile, sourceDataFileName),
+# Download the .zip archive to a temporary file if it's not alreadly 
+# available locally.
+zipFile <- basename(sourceDataZipURL)
+if (!file.exists(zipFile)) {
+    # no local copy found of the .zip archive
+    zipFile <- tempfile()
+    download.file(sourceDataZipURL, zipFile, method = "curl")
+    downloadedTempCopy <- TRUE
+} else {
+    # found local copy of the .zip archive
+    downloadedTempCopy <- FALSE
+}
+
+# Extract the data file from the .zip archive, 
+# and load the data from the data file into a data frame.
+hpcData <- read.table(unz(zipFile, sourceDataFile),
                       header = TRUE, 
                       sep = ";",
                       na.strings = "?" # NAs are represented by "?"s.
                      )
-unlink(tmpFile)
+
+# If a temporary copy of the .zip archive was downloaded, we no longer need it,
+# so remove it.
+if (downloadedTempCopy == TRUE) {
+    unlink(zipFile)
+}
 
 # Convert the Date and Time column values, which read.table() brought in as 
 # factors, into Date and POSIXlt types.
