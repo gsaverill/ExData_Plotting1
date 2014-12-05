@@ -58,22 +58,42 @@ png(filename = "plot4.png",
     height = 480
    )
 
+# Make the Global Active Power plot.
+plot(hpcData$Time, hpcData$Global_active_power, 
+     type = "l",
+     xlab = "",
+     ylab = "Global Active Power (kilowatts)"
+    )
+
+# Make the Voltage plot.
+plot(hpcData$Time, hpcData$Voltage, 
+     type = "l",
+     xlab = "datetime",
+     ylab = "Voltage"
+    )
+
+# Make the Energy Sub Metering plot
 # Make the base plot with one of three sets of X data.
 plot(hpcData$Time, hpcData$Sub_metering_1,
      type = "l",
      xlab = "",
      ylab = "Energy sub metering"
     )
-
 # Add the other two sets of data.
 lines(hpcData$Time, hpcData$Sub_metering_2, col = "red")
 lines(hpcData$Time, hpcData$Sub_metering_3, col = "blue")
-
 # Add the legend.
 legend("topright", lty = 1, lwd = 1,
         col    = c("black",          "red",            "blue"          ),
         legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3")
       )
+
+# Make the Global Reactive Power plot.
+plot(hpcData$Time, hpcData$Global_reactive_power, 
+     type = "l",
+     xlab = "datetime",
+     ylab = "Global_reactive_power"
+    )
 
 # Close the graphics device
 dev.off()
